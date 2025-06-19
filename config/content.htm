@@ -785,6 +785,372 @@
 <p style="padding-left: 30px;"><span>操作者可利用鍵盤特定按鍵控制投籃輪車的移動並發射投籃, 每投出一球後系統透過記分板進行計分, 並由送球機構進行補球或移動輪車取球, 遊戲可進行至全部數量籃球投完為止.</span></p>
 <p>請將期末協同專案執行過程、內容與心得, 製作成影片，配合字幕上傳至 Youtube 後嵌入各階段的期末報告頁面中.</p>
 <p>影片標題: <span style="background-color: #ffff00;">國立虎尾科技大學 - 機械設計工程系 - cd2025 期末報告 - 學員學號 - 各階段影片主題<br/></span></p>
+<h2 class="mb-xs mt-5 text-base font-[500] first:mt-0 dark:font-[475]">Final 相關問題解答</h2>
+<ol class="marker:text-textOff list-decimal">
+<li>
+<p class="my-0"><strong>專案目標與功能</strong><br/>建立 YouBot 投籃模擬系統，整合移動、投籃、計分、補球功能，實現協同操作。</p>
+</li>
+<li>
+<p class="my-0"><strong>主要子系統</strong></p>
+<ul class="marker:text-textOff list-disc">
+<li>
+<p class="my-0">投籃輪車（YouBot 平台）</p>
+</li>
+<li>
+<p class="my-0">籃框架（可移動）</p>
+</li>
+<li>
+<p class="my-0">球體控制系統</p>
+</li>
+<li>
+<p class="my-0">計分顯示（七段顯示器）</p>
+</li>
+<li>
+<p class="my-0">通訊系統（Emitter/Receiver）。</p>
+</li>
+</ul>
+</li>
+<li>
+<p class="my-0"><strong>可移動投籃輪車建立</strong><br/>基於 YouBot 模型，添加投籃機構（多關節馬達）和感測器（GPS、IMU）</p>
+</li>
+<li>
+<p class="my-0"><strong>籃框架移動模式</strong><br/>隨機慢速移動：控制器生成亂數方向，設定馬達速度實現平滑移動。</p>
+</li>
+<li>
+<p class="my-0"><strong>投籃輪車裝置組成</strong></p>
+<ul class="marker:text-textOff list-disc">
+<li>
+<p class="my-0">移動：四 Mecanum 輪</p>
+</li>
+<li>
+<p class="my-0">發射：三軸關節（基座旋轉、仰角調整、發射力道）</p>
+</li>
+</ul>
+</li>
+<li>
+<p class="my-0"><strong>初始位置設定</strong><br/>場景樹中設定<span> </span><code>translation</code>（如<span> </span><code>[0,0.5,0]</code>）和<span> </span><code>rotation</code>（如<span> </span><code>[1]</code>）。</p>
+</li>
+<li>
+<p class="my-0"><strong>籃球建立與數量</strong><br/>使用 Solid + Sphere 幾何體，數量在場景樹預先定義或動態生成。</p>
+</li>
+<li>
+<p class="my-0"><strong>補球機構設計</strong><br/>收集區設 TouchSensor，偵測球體觸發傳送機構（輸送帶或機械臂）。</p>
+</li>
+<li>
+<p class="my-0"><strong>投籃動作觸發</strong><br/>鍵盤按鍵（如 Space）觸發控制器執行關節序列運動。</p>
+</li>
+<li>
+<p class="my-0"><strong>鍵盤控制操作</strong></p>
+<ul class="marker:text-textOff list-disc">
+<li>
+<p class="my-0">移動：W/S（前進/後退）、A/D（旋轉）、Q/E（側移）</p>
+</li>
+<li>
+<p class="my-0">投籃：Space</p>
+</li>
+<li>
+<p class="my-0">角度調整：Z/X<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+</ul>
+</li>
+<li>
+<p class="my-0"><strong>投籃機構配置</strong><br/>三關節串接：基座（HingeJoint1）、仰角（HingeJoint2）、發射（HingeJoint3）。</p>
+</li>
+<li>
+<p class="my-0"><strong>籃框架隨機移動實現</strong><br/>控制器定時生成亂數方向向量，設定馬達速度。</p>
+</li>
+<li>
+<p class="my-0"><strong>記分板設計邏輯</strong><br/>七段顯示器動態更新，籃框感測器偵測進球觸發加分。</p>
+</li>
+<li>
+<p class="my-0"><strong>進框判斷方式</strong><br/>籃框下方設 TouchSensor，偵測球體接觸觸發得分事件。</p>
+</li>
+<li>
+<p class="my-0"><strong>碰撞設定調整</strong><br/>最佳化 boundingObject 形狀，調整 physics 的摩擦係數。</p>
+</li>
+<li>
+<p class="my-0"><strong>籃框架狀態記錄</strong><br/>Supervisor 讀取<span> </span><code>translation</code><span> </span>和<span> </span><code>rotation</code><span> </span>欄位。</p>
+</li>
+<li>
+<p class="my-0"><strong>投籃次數統計</strong><br/>控制器變數記錄<span> </span><code>shots</code>（投籃次數）和<span> </span><code>balls_remaining</code>（剩餘球數）。</p>
+</li>
+<li>
+<p class="my-0"><strong>遊戲結束條件</strong><br/>時間結束（計時器歸零）或球數用盡（<code>balls_remaining &lt;=0</code>）。</p>
+</li>
+<li>
+<p class="my-0"><strong>多台輪車協同</strong><br/>每台車獨立控制器，透過 WebSocket 協調動作。</p>
+</li>
+<li>
+<p class="my-0"><strong>物理屬性調整</strong><br/>修改 physics 的<span> </span><code>mass</code>（質量）、<code>friction</code>（摩擦係數）。</p>
+</li>
+<li>
+<p class="my-0"><strong>YouBot 四輪配置</strong><br/>Mecanum 輪，速度組合實現全向移動（前進、旋轉、側移）<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+<li>
+<p class="my-0"><strong>投籃機構驅動邏輯</strong><br/>馬達設定目標位置（<code>setPosition</code>）或速度（<code>setVelocity</code>）。</p>
+</li>
+<li>
+<p class="my-0"><strong>補球自動偵測</strong><br/>收集區設 DistanceSensor，值低於閾值觸發補球。</p>
+</li>
+<li>
+<p class="my-0"><strong>即時計分顯示</strong><br/>TextDisplay 節點或七段顯示器動態更新分數。</p>
+</li>
+<li>
+<p class="my-0"><strong>物理真實性平衡</strong><br/>調整投籃力道參數和碰撞參數（如恢復係數）。</p>
+</li>
+<li>
+<p class="my-0"><strong>分工合作方式</strong></p>
+<ul class="marker:text-textOff list-disc">
+<li>
+<p class="my-0">機械結構設計</p>
+</li>
+<li>
+<p class="my-0">控制器開發</p>
+</li>
+<li>
+<p class="my-0">感測與通訊整合</p>
+</li>
+<li>
+<p class="my-0">測試與文件。</p>
+</li>
+</ul>
+</li>
+<li>
+<p class="my-0"><strong>報告重點</strong></p>
+<ul class="marker:text-textOff list-disc">
+<li>
+<p class="my-0">專案目標</p>
+</li>
+<li>
+<p class="my-0">系統架構圖</p>
+</li>
+<li>
+<p class="my-0">關鍵技術</p>
+</li>
+<li>
+<p class="my-0">問題與解決</p>
+</li>
+<li>
+<p class="my-0">操作影片。</p>
+</li>
+</ul>
+</li>
+<li>
+<p class="my-0"><strong>影片嵌入網頁</strong><br/>使用<span> </span><code>&lt;iframe&gt;</code><span> </span>嵌入 YouTube 影片連結。</p>
+</li>
+<li>
+<p class="my-0"><strong>衝突協調解決</strong><br/>定期線上會議、使用 Git 管理衝突、分配明確任務。</p>
+</li>
+<li>
+<p class="my-0"><strong>整理心得上傳</strong><br/>將操作影片和 PDF 報告提交至課程平台（如 GitHub Pages）。</p>
+</li>
+<li>
+<p class="my-0"><strong>youBot 初始座標</strong><br/><code>translation [0, 0.5, 0]</code>（地面高度 0.5m）。</p>
+</li>
+<li>
+<p class="my-0"><strong>控制器名稱</strong><br/>youBot 控制器：<code>youbot_controller</code>，籃框架：<code>stand_controller</code>。</p>
+</li>
+<li>
+<p class="my-0"><strong>設定 wheel 的 RotationalMotor</strong><br/>在場景樹命名（如<span> </span><code>DEF WHEEL_MOTOR RotationalMotor</code>）<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+<li>
+<p class="my-0"><strong>PositionSensor 用途</strong><br/>取得輪子轉速和位置回饋，用於閉環控制<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+<li>
+<p class="my-0"><strong>IMU/GPS 定點移動</strong><br/>GPS 提供位置，IMU 提供朝向，計算目標方向角<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+<li>
+<p class="my-0"><strong>側移距離判斷</strong><br/>GPS 計算移動距離，達到目標值停止（如<span> </span><code>distance &lt; 0.01</code>）<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+<li>
+<p class="my-0"><strong>自動移動到座標步驟</strong></p>
+<ol class="marker:text-textOff list-decimal">
+<li>
+<p class="my-0">計算目標方向角</p>
+</li>
+<li>
+<p class="my-0">旋轉對準</p>
+</li>
+<li>
+<p class="my-0">直線移動至目標<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+</ol>
+</li>
+<li>
+<p class="my-0"><strong>移動模式區分</strong><br/>狀態機切換模式（如<span> </span><code>MODE_FORWARD</code>、<code>MODE_SIDEWAYS</code>）<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+<li>
+<p class="my-0"><strong>set_wheel_velocity 參數順序</strong><br/>[左前輪, 右前輪, 左後輪, 右後輪]<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+<li>
+<p class="my-0"><strong>Keyboard 控制按鍵</strong></p>
+<ul class="marker:text-textOff list-disc">
+<li>
+<p class="my-0">移動：W/A/S/D</p>
+</li>
+<li>
+<p class="my-0">投籃：Space</p>
+</li>
+<li>
+<p class="my-0">補球：R<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+</ul>
+</li>
+<li>
+<p class="my-0"><strong>投籃機構關節串接</strong><br/>基座 → 仰角 → 發射關節，層層連接。</p>
+</li>
+<li>
+<p class="my-0"><strong>投籃觸發按鍵</strong><br/>Space 鍵觸發關節序列運動（旋轉→仰角→發射）。</p>
+</li>
+<li>
+<p class="my-0"><strong>籃框架隨機演算法</strong><br/>使用亂數生成器決定移動方向向量。</p>
+</li>
+<li>
+<p class="my-0"><strong>補球訊息流程</strong><br/>感測器 → Emitter 發送 → 主控制器 → 補球機構執行。</p>
+</li>
+<li>
+<p class="my-0"><strong>Emitter/Receiver 角色</strong><br/>傳遞得分和補球指令（如<span> </span><code>Emitter.send("SCORE")</code>）。</p>
+</li>
+<li>
+<p class="my-0"><strong>七段顯示器變色</strong><br/>根據得分訊息更新 Material 的<span> </span><code>diffuseColor</code>（如得分時閃爍綠色）。</p>
+</li>
+<li>
+<p class="my-0"><strong>進框感測器設定</strong><br/>籃框下方設 TouchSensor，偵測球體接觸。</p>
+</li>
+<li>
+<p class="my-0"><strong>自動加分邏輯</strong><br/>感測器觸發 → Emitter 發送得分 → 記分板控制器更新分數。</p>
+</li>
+<li>
+<p class="my-0"><strong>防止穿透異常</strong><br/>最佳化 boundingObject 形狀，調整碰撞參數。</p>
+</li>
+<li>
+<p class="my-0"><strong>物理參數設定</strong><br/>在 Physics 節點設定<span> </span><code>mass</code>、<code>friction</code>、<code>restitution</code>（彈性）。</p>
+</li>
+<li>
+<p class="my-0"><strong>多機協同衝突</strong><br/>指令衝突時設定優先級（如先進先出）。</p>
+</li>
+<li>
+<p class="my-0"><strong>補球確保唯一</strong><br/>感測器狀態機確保一次只觸發一顆球。</p>
+</li>
+<li>
+<p class="my-0"><strong>動態結束遊戲</strong><br/>控制器監控<span> </span><code>balls_remaining</code><span> </span>變數，觸發結束狀態。</p>
+</li>
+<li>
+<p class="my-0"><strong>自動循環設計</strong><br/>狀態機管理：補球 → 投籃 → 計分 → 補球。</p>
+</li>
+<li>
+<p class="my-0"><strong>Viewpoint 設定作用</strong><br/>控制觀察視角，可動態追蹤機器人。</p>
+</li>
+<li>
+<p class="my-0"><strong>嵌入 YouTube 影片</strong><br/>使用<span> </span><code>&lt;iframe&gt;</code><span> </span>嵌入影片分享連結。</p>
+</li>
+<li>
+<p class="my-0"><strong>協作困難解決</strong><br/>使用版本控制（Git）、定期同步、明確分工。</p>
+</li>
+<li>
+<p class="my-0"><strong>調整七段顯示器顏色</strong><br/>修改 Material 的<span> </span><code>diffuseColor</code>（如<span> </span><code>[1]</code><span> </span>紅色）。</p>
+</li>
+<li>
+<p class="my-0"><strong>場景執行驗證</strong><br/>確保檔案路徑正確，控制器相容，物理參數合理。</p>
+</li>
+<li>
+<p class="my-0"><strong>功能驗證方法</strong></p>
+<ul class="marker:text-textOff list-disc">
+<li>
+<p class="my-0">單元測試各模組</p>
+</li>
+<li>
+<p class="my-0">整合測試全流程</p>
+</li>
+<li>
+<p class="my-0">邊界測試。</p>
+</li>
+</ul>
+</li>
+<li>
+<p class="my-0"><strong>新增/刪除籃球</strong><br/>場景樹中新增 Solid 節點，或控制器動態生成。</p>
+</li>
+<li>
+<p class="my-0"><strong>籃球屬性設定</strong></p>
+<ul class="marker:text-textOff list-disc">
+<li>
+<p class="my-0">尺寸：Sphere 半徑</p>
+</li>
+<li>
+<p class="my-0">顏色：Material 的<span> </span><code>diffuseColor</code></p>
+</li>
+<li>
+<p class="my-0">質量：Physics 的<span> </span><code>mass</code>。</p>
+</li>
+</ul>
+</li>
+<li>
+<p class="my-0"><strong>修改質量/摩擦係數</strong><br/>在 Physics 節點調整<span> </span><code>mass</code><span> </span>和<span> </span><code>friction</code>。</p>
+</li>
+<li>
+<p class="my-0"><strong>限制活動區域</strong><br/>控制器檢查 GPS 位置，越界時強制停止<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+<li>
+<p class="my-0"><strong>驗證初始朝向</strong><br/>讀取<span> </span><code>rotation</code><span> </span>欄位或使用 Compass 感測器。</p>
+</li>
+<li>
+<p class="my-0"><strong>籃框架移動範圍</strong><br/>設定移動邊界（如<span> </span><code>minX=-5, maxX=5</code>）。</p>
+</li>
+<li>
+<p class="my-0"><strong>自動對準籃框</strong><br/>計算籃框方位角，旋轉對準後直線移動<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+<li>
+<p class="my-0"><strong>記錄未得分</strong><br/>控制器變數累計<span> </span><code>missed_shots</code>。</p>
+</li>
+<li>
+<p class="my-0"><strong>手動重置籃球</strong><br/>Supervisor 設定球體<span> </span><code>translation</code><span> </span>回起始點。</p>
+</li>
+<li>
+<p class="my-0"><strong>計分板改多位數</strong><br/>增加顯示器數量，擴充控制器邏輯。</p>
+</li>
+<li>
+<p class="my-0"><strong>遊戲結束顯示</strong><br/>七段顯示器切換為 "GAME OVER" 模式。</p>
+</li>
+<li>
+<p class="my-0"><strong>球數不足自動補球</strong><br/>控制器監控<span> </span><code>balls_remaining</code>，低於閾值觸發補球。</p>
+</li>
+<li>
+<p class="my-0"><strong>投球冷卻時間</strong><br/>計時器限制連續投籃間隔（如 1 秒)。</p>
+</li>
+<li>
+<p class="my-0"><strong>讀取即時速度</strong><br/>PositionSensor 取得輪速，計算車速<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+<li>
+<p class="my-0"><strong>LOG 即時顯示</strong><br/>控制器<span> </span><code>print()</code><span> </span>輸出至終端機。</p>
+</li>
+<li>
+<p class="my-0"><strong>DistanceSensor 設定</strong><br/>設定<span> </span><code>minRange</code>、<code>maxRange</code>、<code>resolution</code>。</p>
+</li>
+<li>
+<p class="my-0"><strong>非線性運動實作</strong><br/>加入加速度變化（如<span> </span><code>velocity *= 1.1</code>）。</p>
+</li>
+<li>
+<p class="my-0"><strong>自動化測試腳本</strong><br/>預錄鍵盤指令序列執行。</p>
+</li>
+<li>
+<p class="my-0"><strong>多計分板實作</strong><br/>複製七段顯示器 PROTO，獨立控制。</p>
+</li>
+<li>
+<p class="my-0"><strong>倒數計時器設計</strong><br/>TextDisplay 節點動態更新時間文字。</p>
+</li>
+<li>
+<p class="my-0"><strong>偵測卡住處理</strong><br/>監控速度，低於閾值觸發解鎖動作<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+<li>
+<p class="my-0"><strong>多 YouBot 區分</strong><br/>獨立控制器或命名空間區隔（如<span> </span><code>robot1_motor</code>）<span aria-label="Webots Robot Simulator: KUKA's youBot - YouTube" class="citation ml-xs inline" data-state="closed" rel="nofollow noopener"><span class="relative select-none align-middle cursor-pointer -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">10</span></span></span></p>
+</li>
+<li>
+<p class="my-0"><strong>多點補球設計</strong><br/>多個收集區和傳送機構，獨立觸發。</p>
+</li>
+<li>
+<p class="my-0"><strong>籃球質量影響測試</strong><br/>調整 Physics 的<span> </span><code>mass</code>，觀察投籃軌跡變化。</p>
+</li>
+</ol>
 <h1>Brython</h1>
 <p><button id="add1to100">1 add to 100</button></p>
 <!-- 導入 brython 程式庫 -->
