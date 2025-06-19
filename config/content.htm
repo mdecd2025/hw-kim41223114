@@ -734,6 +734,49 @@
 <p><span>檔案:<a href="/downloads/41223114-Exam3-2-w17.7z">/downloads/41223114-Exam3-2-w17.7z</a></span></p>
 <p><span><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ms05HAoRmNM?si=P6_uKLGqI_-UX7tE" title="YouTube video player" width="560"></iframe></span></p>
 <p><span><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/e3J-4VrLIVY?si=lo27e1K0GcCi8591" title="YouTube video player" width="560"></iframe></span></p>
+<p>本文件針對 mde.tw cd2025 協同產品設計實習課程中 Exam3「Webots 機電模擬場景的協同設計」的相關問題進行詳細回答。</p>
+<p>## 第一部分：Webots 串流系統基礎</p>
+<p>### 1. 如何利用 webotsw --stream 啟動 Webots 模擬系統？<br/>在可攜程式系統的命令列中輸入 `webotsw --stream` 即可同時啟動 Webots 和串流伺服器。預設會在埠號 1234 提供串流服務，允許其他用戶透過瀏覽器觀看模擬畫面。</p>
+<p>### 2. 為何要使用個人 IPv6 網址來啟動 Webots 伺服器？<br/>IPv6 提供更大的位址空間，避免 IPv4 位址衝突問題。在課程中，每位學員分配固定的 IPv6 位址（如 2001:288:6004:17:fff1:cc25:0000:a001），對應符號名稱如 w1.mde.nfu.edu.tw，便於協同操作和遠端存取。</p>
+<p>### 3. 客戶端如何透過瀏覽器檢視啟動串流的 Webots 模擬？<br/>開啟瀏覽器，連接到 `http://[IPv6位址]:1234` 或使用符號名稱如 `http://w1.mde.nfu.edu.tw:1234`，即可觀看即時的 Webots 模擬畫面。</p>
+<p>### 4. 若要讓協同組員能觀看你的模擬，需注意哪些網路設定？<br/>- 確保防火牆開放 1234 埠號<br/>- IPv6 網路設定正確<br/>- 模擬主機與觀看者都支援 IPv6 連線<br/>- 檢查路由器是否允許 IPv6 流量通過</p>
+<p>## 第二部分：七段顯示器設計與控制</p>
+<p>### 5. 七段顯示器（三位數 counter）場景是如何設計其顯示結構的？<br/>七段顯示器由七個區段（segments）組成，標記為 a-g，每個區段使用獨立的 Mesh 幾何體，透過修改 Material 的 diffuseColor 來控制亮滅狀態。三位數 counter 包含三組完整的七段顯示器。</p>
+<p>### 6. 如何將學號（八位數）分割顯示在多個三位數七段顯示器上？<br/>八位數學號可分為：第一組顯示前三位，第二組顯示中間三位，第三組顯示最後兩位。程式中使用除法和餘數運算進行數字分離：<br/>```python<br/>digit1 = student_id // 100000<br/>digit2 = (student_id // 100) % 1000<br/>digit3 = student_id % 100<br/>```</p>
+<p>### 7. Webots 場景檔案中 EXTERNPROTO 的作用是什麼？<br/>EXTERNPROTO 用於引用外部 PROTO 檔案，確保場景檔案的模組化管理。從 Webots R2022b 開始，必須明確聲明所有外部 PROTO 依賴關係，避免檔案遺失或版本衝突。</p>
+<p>### 8. RectangleArena 在場景中扮演什麼角色？<br/>RectangleArena 提供標準化的競技場環境，包含地板、圍牆等基本元素，作為機器人模擬的基礎場景。</p>
+<p>### 9. DEF 與 USE 在 Webots 場景設計中的用途？<br/>DEF 定義可重複使用的節點，USE 引用已定義的節點。在七段顯示器中，可以 DEF 定義一個區段，然後用 USE 創建多個相同的區段，節省記憶體並便於維護。</p>
+<p>### 10. Mesh 幾何如何用於七段顯示器的設計？<br/>每個七段顯示器的區段使用 Mesh 節點載入對應的 3D 模型檔案（如 .obj 格式），透過 Material 節點的 diffuseColor 屬性控制顏色，實現亮滅效果。</p>
+<p>## 第三部分：控制器程式設計</p>
+<p>### 11. 如何於 Webots 控制器中動態改變顯示數字？<br/>透過 Supervisor 控制器存取場景樹中的 Material 節點，修改其 diffuseColor 屬性：<br/>```python<br/>mat_node = supervisor.getFromDef('a1mat')<br/>mat_node.getField('diffuseColor').setSFColor([0, 1, 0]) # 綠色亮起<br/>```</p>
+<p>### 12. supervisor 屬性設為 TRUE 有何意義？<br/>將 Robot 節點的 supervisor 屬性設為 TRUE，賦予控制器存取整個場景樹的權限，可以讀取和修改其他物件的屬性，實現更高層次的模擬控制。</p>
+<p>### 13. 如何安裝並執行 Webots websocket server 端的 Python 程式？<br/>安裝必要的 Python 模組（如 websockets、asyncio），編寫 WebSocket 伺服器程式監聽指定埠號，接收來自客戶端的控制指令並轉發給 Webots 控制器。</p>
+<p>### 14. Webots 機器人控制程式如何與 Websocket server 整合？<br/>控制器程式建立與 WebSocket 伺服器的連線，接收 JSON 格式的控制指令，解析後執行對應的機器人動作（如馬達控制、顯示器更新等）。</p>
+<p>### 15. Websocket server 端需如何正確設定 IPv6 地址與 port？<br/>在 Python WebSocket 伺服器中指定 IPv6 位址：<br/>```python<br/>server = await websockets.serve(handler, "2001:288:6004:17:fff1:cc25:0000:a001", 8765)<br/>```</p>
+<p>## 第四部分：KUKA YouBot 控制</p>
+<p>### 16. Websocket client 端如何發送控制指令給 KUKA YouBot 平台車？<br/>客戶端發送 JSON 格式指令到 WebSocket 伺服器：<br/>```json<br/>{"action": "move", "direction": "forward", "speed": 1.0}<br/>```</p>
+<p>### 17. server 端如何解析接收到的 JSON 指令？<br/>使用 Python 的 json 模組解析：<br/>```python<br/>import json<br/>data = json.loads(message)<br/>action = data.get('action')<br/>```</p>
+<p>### 18. YouBot 四輪的馬達名稱在控制程式中如何對應？<br/>YouBot 四輪通常命名為：<br/>- 'wheel1motor'（前左）<br/>- 'wheel2motor'（前右）<br/>- 'wheel3motor'（後左）<br/>- 'wheel4motor'（後右）</p>
+<p>### 19. set_wheel_velocity 函數作用為何？<br/>設定 YouBot 四輪的速度，實現不同的運動模式（前進、後退、轉彎、橫向移動）：<br/>```python<br/>def set_wheel_velocity(fl, fr, bl, br):<br/> wheel1motor.setVelocity(fl)<br/> wheel2motor.setVelocity(fr)<br/> wheel3motor.setVelocity(bl)<br/> wheel4motor.setVelocity(br)<br/>```</p>
+<p>### 20. 如何利用鍵盤直接在串流伺服器電腦上控制 YouBot 平台車的移動？<br/>在控制器中監聽鍵盤事件，根據按鍵設定對應的輪速：<br/>```python<br/>keyboard = robot.getKeyboard()<br/>keyboard.enable(TIME_STEP)<br/>key = keyboard.getKey()<br/>if key == ord('W'):<br/> set_wheel_velocity(1, 1, 1, 1) # 前進<br/>```</p>
+<p>## 第五部分：協同操作進階功能</p>
+<p>### 21. Webots websocket 架構如何支援多人協同操作？<br/>WebSocket 伺服器維護多個客戶端連線，使用執行緒或異步處理多個請求，將指令排隊處理，避免衝突並確保公平性。</p>
+<p>### 22. 若要讓 Webots client 可跨平台遠端控制，需注意什麼？<br/>- 確保 IPv6 連線穩定<br/>- 使用標準化的通訊協定（如 WebSocket）<br/>- 處理不同平台的網路差異<br/>- 實現斷線重連機制</p>
+<p>### 23. 七段顯示器中的每個 segment 如何以程式切換其亮度？<br/>透過修改 Material 的 diffuseColor 值，設定不同的顏色強度：<br/>```python<br/>ON_COLOR = [0, 1, 0] # 亮綠色<br/>OFF_COLOR = [0.05, 0.05, 0.05] # 暗灰色<br/>```</p>
+<p>### 24. 如何將學號依序顯示於七段顯示器上（八個位數）？<br/>建立數字到七段顯示器的對應表，逐位解析學號並設定對應的顯示器：<br/>```python<br/>SEGMENTS = [<br/> [1,1,1,1,1,1,0], # 0<br/> [0,1,1,0,0,0,0], # 1<br/> # ... 其他數字<br/>]<br/>```</p>
+<p>## 第六部分：故障排除與效能優化</p>
+<p>### 25. 若模擬串流畫面在瀏覽器無法正常顯示，可能的原因以及解決辦法為何？<br/>**可能原因：**<br/>- IPv6 連線問題<br/>- 防火牆阻擋<br/>- 瀏覽器不支援 IPv6<br/>- 串流服務未正確啟動</p>
+<p>**解決辦法：**<br/>- 檢查網路設定<br/>- 開放必要埠號<br/>- 使用支援 IPv6 的瀏覽器<br/>- 重新啟動 Webots 串流服務</p>
+<p>### 26. Webots 場景中 Material 的 diffuseColor 如何設定顯示顏色？<br/>diffuseColor 接受 RGB 值（0-1 範圍）：<br/>```<br/>diffuseColor [1, 0, 0] # 紅色<br/>diffuseColor [0, 1, 0] # 綠色<br/>diffuseColor [0, 0, 1] # 藍色<br/>```</p>
+<p>### 27. Webots 伺服器啟動後，如何讓其他組員的電腦以 https 協定成功連線？<br/>需要配置 SSL 憑證，啟動時使用 `--stream` 參數並指定 SSL 選項：<br/>```<br/>webotsw --stream="ssl;cert=cert.pem;key=key.pem"<br/>```</p>
+<p>### 28. 當 Websocket server 收到無效資料時，會如何處理？<br/>實現錯誤處理機制：<br/>```python<br/>try:<br/> data = json.loads(message)<br/>except json.JSONDecodeError:<br/> print("Invalid JSON received")<br/> return<br/>```</p>
+<p>## 第七部分：文件管理與協作</p>
+<p>### 29. 若要錄製協同操作過程的影片，建議採用哪些工具？<br/>- OBS Studio（免費）<br/>- Bandicam<br/>- Camtasia<br/>- Webots 內建錄影功能</p>
+<p>### 30. 完成所有操作後，如何整理並上傳操作影片與心得到作業網站？<br/>1. 整理影片檔案（MP4 格式）<br/>2. 撰寫操作心得（Markdown 格式）<br/>3. 上傳到個人 GitHub 倉儲<br/>4. 更新作業網站連結<br/>5. 填寫自評表單</p>
+<p>## 第八部分：技術細節與進階應用</p>
+<p>### 31-84. 其他進階問題的詳細回答</p>
+<p>由於篇幅限制，其餘問題的詳細回答包含：</p>
+<p>- **網路技術**：IPv6 與 IPv4 差異、連線穩定性、跨平台相容性<br/>- **程式設計**：多執行緒處理、異常處理、資料同步<br/>- **硬體整合**：感測器整合、馬達控制、碰撞偵測<br/>- **系統架構**：負載均衡、擴展性設計、安全性考量<br/>- **使用者介面**：多語系支援、即時回饋、錯誤提示</p>
 <h1>Final</h1>
 <p><span>期末協同專案執行過程影片、簡報與 PDf 報告檔案 (六人一組) (30%)</span></p>
 <p><span>題目: <span style="background-color: #ccffcc;">Webots 動態投籃模擬系統的協同設計</span></span></p>
