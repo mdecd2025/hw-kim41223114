@@ -153,6 +153,67 @@ img.add_border {
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ZHBcs37iNOI?si=893kAXke1SXlMGhy" title="YouTube video player" width="560"></iframe></p>
 <p>如果完成了，應該是像這樣:</p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ypN5DzGLSXA?si=PlzzfRiH2jChTGM-" title="YouTube video player" width="560"></iframe></p>
+<p>Tutorial6 相關提問</p>
+<p>主要學習主題?</p>
+<p>Tutorial6 主要學習如何在 Webots 中為 e-puck 機器人新增攝影機（Camera）裝置，並透過程式控制攝影機，取得影像資料，進而讓機器人能依據視覺資訊做出反應。</p>
+<p>e-puck 機器人新增裝置?</p>
+<p>在本單元，e-puck 機器人新增了攝影機（Camera）裝置。</p>
+<p>如何在 Webots 中使用攝影機（Camera）?</p>
+<p>需在機器人結構中加入 Camera 節點，設定好名稱、位置與方向。然後在控制器程式中取得 Camera 物件並啟用。</p>
+<p>Camera 需要在程式中如何啟用?</p>
+<p>需呼叫 camera-&gt;enable(TIME_STEP)（C++）或 wb_camera_enable(camera, TIME_STEP)（C）來啟用攝影機，TIME_STEP 是模擬步進時間。</p>
+<p>如何取得攝影機擷取到的影像資料?</p>
+<p>啟用攝影機後，可用 camera-&gt;getImage()（C++）或 wb_camera_get_image(camera)（C）取得影像資料。</p>
+<p>機器人如何依據攝影機影像做出反應?</p>
+<p>可根據影像中的顏色、形狀等資訊進行分析，然後調整機器人行為（如移動方向、速度等）。</p>
+<p>Camera 裝置可以調整哪些參數?</p>
+<p>可調整解析度（寬、高）、視場角（FOV）、更新頻率等。</p>
+<p>影像解析度的設定會對模擬有什麼影響?</p>
+<p>解析度越高，影像越清晰，但會增加運算負擔，降低模擬效率。</p>
+<p>如何將攝影機影像儲存成圖片檔?</p>
+<p>可將取得的影像資料存成圖片檔（如 PNG），需用程式將影像 buffer 轉存為檔案，通常會用到額外的影像處理函式庫。</p>
+<p>若攝影機影像顯示異常，可能的原因?</p>
+<p>常見原因有：Camera 節點未正確加入、名稱不符、未啟用、解析度設置錯誤、Webots 需重啟等。</p>
+<p>Tutorial7 相關提問</p>
+<p>核心任務?</p>
+<p>讓 e-puck 機器人利用攝影機偵測並辨識顏色，進而做出相應行為。</p>
+<p>e-puck 機器人如何偵測顏色?</p>
+<p>透過攝影機擷取影像後，分析影像像素的顏色資訊。</p>
+<p>如何分析攝影機擷取的影像來辨識特定顏色</p>
+<p>可逐像素分析 RGB 或 HSV 值，判斷是否落在目標顏色範圍內。</p>
+<p>OpenCV 或其他影像處理函式庫的應用方式?</p>
+<p>將 Webots 取得的影像資料轉為 OpenCV 可處理的格式（如 Mat），然後用 OpenCV 函式進行顏色過濾、區域偵測等。</p>
+<p>如何將影像中的顏色資訊轉換為機器人行為?</p>
+<p>分析影像中目標顏色的位置，決定機器人移動方向或速度，實現追蹤等行為。</p>
+<p>若要辨識多種顏色，程式需考慮哪些步驟?</p>
+<p>需為每種顏色設置對應的閾值範圍，分別進行偵測，並根據偵測結果決定行為優先順序。</p>
+<p>如何解決不同光源下顏色偵測的不穩定問題?</p>
+<p>可將影像轉換為 HSV 色彩空間，並動態調整閾值，或進行自動白平衡、亮度校正等。</p>
+<p>e-puck 機器人如何追蹤影像中的顏色物件?</p>
+<p>偵測到目標顏色後，計算其在影像中的位置，調整機器人行進方向，使目標保持在中央。</p>
+<p>若影像中有多個同色物件，程式如何選擇追蹤目標?</p>
+<p>可選擇面積最大、最靠近中央或最近的物件作為追蹤目標。</p>
+<p>Tutorial7 能否應用於現實世界的機器人？需做哪些調整？</p>
+<p>可應用於現實機器人，但需考慮真實攝影機的雜訊、光源變化、鏡頭畸變等，並進行相應的校正與調整。</p>
+<p>Tutorial8 相關提問</p>
+<p>主要學習目標?</p>
+<p>學習 Supervisor 控制器的使用，實現對多個機器人或物件的監控與管理。</p>
+<p>什麼是 Supervisor？在 Tutorial8 扮演什麼角色？</p>
+<p>Supervisor 是一種特殊的控制器，可取得並控制場景中所有物件，負責監督與管理模擬過程。</p>
+<p>Supervisor 可以進行哪些操作？</p>
+<p>可取得物件狀態、控制物件位置、重設模擬、紀錄數據等。</p>
+<p>如何在 Supervisor 控制器中存取並控制其他機器人？</p>
+<p>可透過 API 取得機器人節點，然後讀取或改寫其屬性（如位置、狀態）。</p>
+<p>如何用 Supervisor 監測機器人是否達到目標區域？</p>
+<p>可定期取得機器人座標，判斷是否進入目標區域範圍。</p>
+<p>Supervisor 如何重設模擬或重置機器人位置？</p>
+<p>可呼叫 Supervisor 的重設函式，或直接設定機器人座標來重置位置。</p>
+<p>Supervisor 能否獲取所有物件的座標與狀態？如何實作？</p>
+<p>可以，透過遍歷場景樹節點，取得各物件座標與狀態。</p>
+<p>如何紀錄機器人模擬過程的數據供日後分析？</p>
+<p>Supervisor 可將模擬過程中的關鍵數據（如座標、狀態等）寫入檔案做紀錄。</p>
+<p>Supervisor 可以如何協助自動化測試機器人行為？</p>
+<p>可自動控制模擬流程、重複測試不同情境，並自動收集結果數據。</p>
 <br />HW2 << <a href='HW2.html'>Previous</a> <a href='Midterm.html'>Next</a> >> Midterm</div>
         
     <!-- footer -->

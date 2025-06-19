@@ -153,6 +153,35 @@ img.add_border {
 <p>操作影片標題: 國立虎尾科技大學 - 機械設計工程系 - cd2025 HW2 - 學員學號</p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/uQ4JgNVCWDk?si=om14455ctpWktBjQ" title="YouTube video player" width="560"></iframe></p>
 <p>這部影片是在webots上嘗試模擬HW2。</p>
+<p>Tutorial3：地面顏色感測與行為控制<br/> 主要學習目標：學習利用 ground sensor 偵測地面顏色，並根據顏色改變機器人行為。</p>
+<p>偵測方式：使用安裝於機器人底部的 ground sensor 讀取反射光強度。</p>
+<p>感測器作用：辨識地面顏色（如黑、白、灰），用於巡線或標記辨識。</p>
+<p>程式操作：啟用感測器並讀取數值，根據數值判斷顏色。</p>
+<p>行為改變：遇黑線時停下或轉向，遇白色繼續前進。</p>
+<p>校正原因：環境光線與地面材質影響感測器數值，校正提升準確度。</p>
+<p>sampling period 設定：啟用感測器時指定取樣週期。</p>
+<p>判斷錯誤原因：感測器未校正、光線變化、材質反光異常、門檻設定不當。</p>
+<p>Tutorial4：距離感測與避障行為<br/> 核心任務：利用距離感測器偵測障礙物，實作自動避障。</p>
+<p>偵測方式：e-puck 配備多個紅外線距離感測器，取得周圍障礙物距離。</p>
+<p>DistanceSensor 運作：回傳與障礙物距離成比例的數值（0~4096）。</p>
+<p>程式操作：取得感測器裝置，啟用並讀取數值。<br/> <br/> 數值單位與轉換：數值為比例值，需校正轉換為實際距離。</p>
+<p>sampling period 設定：啟用時設定取樣週期（毫秒）。</p>
+<p>避障行為實作：根據感測器數值判斷障礙物方向，調整轉向。</p>
+<p>雙側障礙物處理：後退並隨機轉向避免死角。</p>
+<p>多感測器考量：提供完整環境資訊，提升避障精確度。</p>
+<p>故障排除：檢查感測器啟用、校正門檻、演算法優化、馬達控制。</p>
+<p>Tutorial5：多感測器整合與複雜任務<br/> 主題：結合多種感測器，實作複雜任務與有限狀態機（FSM）。</p>
+<p>多感測器反應：根據地面顏色與障礙物狀態調整行為。</p>
+<p>感測器融合：同時讀取多感測器數值，設計 FSM 進行狀態切換。</p>
+<p>巡線與避障結合：巡線為主，遇障礙物暫停巡線避障。</p>
+<p>衝突訊息決策：設定感測器優先權或依狀態機切換行為。</p>
+<p>任務流程切換：以 FSM 控制狀態與行為。</p>
+<p>FSM 設計：定義狀態，根據感測器輸入切換。</p>
+<p>挑戰題目：如同時巡線避障，先分別實作再整合。</p>
+<p>自主巡邏功能：路徑規劃、位置記錄、感測器融合、狀態控制。</p>
+<p>感測器資料融合（Sensor Fusion）</p>
+<p>將多種感測器數據整合，提升環境感知與決策能力。</p>
+<p>應用於巡線避障、複雜任務狀態切換</p>
 <br />HW1 << <a href='HW1.html'>Previous</a> <a href='HW3.html'>Next</a> >> HW3</div>
         
     <!-- footer -->

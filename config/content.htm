@@ -167,21 +167,235 @@
 </ul>
 </li>
 <li>如何將 Webots 世界（world）或機器人設定檔分享給他人，確保對方可順利開啟模擬？A:<span>只要按照標準檔案結構打包專案、確認所有依賴資產與控制器皆在目錄內，並附上簡要說明，即可順利分享 Webots 世界或機器人設定檔，讓對方開啟模擬時不會遇到檔案遺漏或路徑錯誤</span><span>。</span></li>
-<li>如果想讓機器人在模擬時產生聲音或播放音樂，Webots 提供哪些方法？</li>
-<li>請說明如何在 Webots 中同時操作多個機器人，並讓它們各自執行不同控制器。</li>
-<li>在 Webots 控制器中，如何獲得機器人的當前座標位置與朝向？</li>
-<li>請說明 Webots 控制器中感測器資料的單位（例如距離感測器、加速度計），以及如何正確解讀。</li>
-<li>如果想要錄製 Webots 模擬畫面並輸出成影片檔，該如何操作？</li>
-<li>Webots 中的 PROTO 文件有什麼作用？與 world 檔（.wbt）的關係為何？</li>
-<li>請說明如何在 Webots 中設定機器人的初始位置和方向。</li>
-<li>在 Tutorial1 或 Tutorial2 中，如何讓機器人執行預設外的自訂動作？</li>
-<li>Webots 支援哪些主流程控制語言？各有何優缺點？</li>
-<li>機器人控制器程式如何與其他程式（如資料記錄、遠端伺服器）進行通訊？</li>
-<li>Webots 的模擬世界中燈光和陰影設定如何影響感測器或相機的數據？</li>
-<li>如何在 Webots 中調整機器人或感測器的物理參數（如質量、摩擦係數）？</li>
-<li>請說明如何使用 Webots 的 Console 與 Debug 工具協助程式錯誤排除。</li>
-<li>Tutorial1、2 裡的機器人遇到物體時，碰撞偵測機制如何運作？</li>
-<li>若要將 Webots 模擬結果導出並進行數據分析，你會選擇哪些方法與工具？</li>
+<li>如果想讓機器人在模擬時產生聲音或播放音樂，Webots 提供哪些方法？A:
+<p class="my-0"><strong>新增 Speaker 節點</strong>：在機器人或環境物件的<span> </span><code>children</code><span> </span>子節點下新增<span> </span><code>Speaker</code><span> </span>節點。</p>
+<p class="my-0"><strong>設定名稱與位置</strong>：設定<span> </span><code>name</code><span> </span>屬性（如<span> </span><code>"speaker"</code>）與<span> </span><code>translation</code><span> </span>屬性，以決定聲音來源位置。</p>
+<p class="my-0"><strong>選擇聲音檔</strong>：可於<span> </span><code>Speaker</code><span> </span>節點設定播放的<span> </span><code>.wav</code><span> </span>檔，或直接透過控制器程式指定播放內容<a aria-label="Webots documentation: Speaker" class="citation ml-xs inline" data-state="closed" href="https://www.cyberbotics.com/doc/reference/speaker" rel="nofollow noopener" target="_blank"><span class="relative select-none align-middle -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">1</span></span></a><a aria-label="GCTronic' e-puck - Webots documentation" class="citation ml-xs inline" data-state="closed" href="https://www.cyberbotics.com/doc/guide/epuck?version=cyberbotics%3AR2019a" rel="nofollow noopener" target="_blank"><span class="relative select-none align-middle -top-px font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark"><span class="hover:bg-super dark:hover:bg-superDark dark:hover:text-backgroundDark min-w-[1rem] cursor-pointer rounded-[0.3125rem] text-center align-middle font-mono text-[0.6rem] tabular-nums hover:text-white py-[0.1875rem] px-[0.3rem] border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-offsetPlus dark:bg-offsetPlusDark">2</span></span></a>。</p>
+</li>
+<li>請說明如何在 Webots 中同時操作多個機器人，並讓它們各自執行不同控制器。A:
+<div class="border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-transparent">
+<div class="gap-y-sm md:gap-y-md flex flex-col">
+<div class="relative font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark">
+<div class="min-w-0 break-words [word-break:break-word]">
+<div class="gap-y-md after:clear-both after:block after:content-['']" dir="auto" id="markdown-content-12">
+<div class="relative">
+<div class="prose text-pretty dark:prose-invert inline leading-normal break-words min-w-0 [word-break:break-word]">
+<p class="my-0">透過正確設定場景樹名稱、啟動參數和動態識別機制，Webots 可同時運行多個獨立控制的機器人。關鍵在於：</p>
+<ol class="marker:text-textOff list-decimal">
+<li>
+<p class="my-0">確保每個機器人有唯一名稱和<span> </span><code>&lt;extern&gt;</code><span> </span>控制器</p>
+</li>
+<li>
+<p class="my-0">啟動控制器時明確指定<span> </span><code>--robot-name</code></p>
+</li>
+<li>
+<p class="my-0">在程式碼中根據名稱分支執行不同邏輯</p>
+</li>
+<li>
+<p class="my-0">資源使用需隔離（檔案、網路埠等）</p>
+</li>
+</ol>
+<p class="my-0">此方法適用於學術研究（如多機器人協作）和工業測試（如自動化產線模擬）。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>在 Webots 控制器中，如何獲得機器人的當前座標位置與朝向？A:
+<ul class="marker:text-textOff list-disc">
+<li>
+<p class="my-0"><strong>一般控制器</strong>：需安裝 GPS 與 Compass 節點，透過感測器讀取位置與朝向。</p>
+</li>
+<li>
+<p class="my-0"><strong>Supervisor 控制器</strong>：可直接存取場景樹欄位，無需額外感測器，即可取得精確座標與朝向。</p>
+</li>
+</ul>
+<p class="my-0">這種設計讓一般控制器更貼近真實機器人（需依賴感測器），而 Supervisor 則可用於實驗監控與自動化測試。</p>
+</li>
+<li>請說明 Webots 控制器中感測器資料的單位（例如距離感測器、加速度計），以及如何正確解讀。A:
+<table class="border-borderMain dark:border-borderMainDark my-[1em] w-full table-auto border">
+<thead class="bg-offset dark:bg-offsetDark">
+<tr>
+<th class="border-borderMain px-sm py-sm dark:border-borderMainDark break-normal border text-left align-top">感測器類型</th>
+<th class="border-borderMain px-sm py-sm dark:border-borderMainDark break-normal border text-left align-top">回傳值單位</th>
+<th class="border-borderMain px-sm py-sm dark:border-borderMainDark break-normal border text-left align-top">解讀方式與注意事項</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">距離感測器</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">感測器原始輸出</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">需用 lookupTable 轉換為實際距離（公尺）</td>
+</tr>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">加速度計</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">公尺每平方秒（m/s²）</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">三軸加速度，含重力分量</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>如果想要錄製 Webots 模擬畫面並輸出成影片檔，該如何操作？A: ShareX.exe</li>
+<li>Webots 中的 PROTO 文件有什麼作用？與 world 檔（.wbt）的關係為何？A:
+<table class="border-borderMain dark:border-borderMainDark my-[1em] w-full table-auto border" height="158" width="524">
+<thead class="bg-offset dark:bg-offsetDark">
+<tr>
+<th class="border-borderMain px-sm py-sm dark:border-borderMainDark break-normal border text-left align-top" style="width: 53.4625px;"><strong>特性</strong></th>
+<th class="border-borderMain px-sm py-sm dark:border-borderMainDark break-normal border text-left align-top" style="width: 238.712px;"><strong>PROTO 文件</strong></th>
+<th class="border-borderMain px-sm py-sm dark:border-borderMainDark break-normal border text-left align-top" style="width: 213.025px;"><strong>World 文件（.wbt）</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 53.4625px;"><strong>角色</strong></td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 238.712px;">定义可重用组件（如机器人模型）</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 213.025px;">描述整个模拟场景（包含实例化的 PROTO）</td>
+</tr>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 53.4625px;"><strong>语法结构</strong></td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 238.712px;">包含<span> </span><code>PROTO</code><span> </span>声明、字段定义和节点主体</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 213.025px;">包含<span> </span><code>WorldInfo</code>、<code>Viewpoint</code><span> </span>和实例化节点</td>
+</tr>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 53.4625px;"><strong>实例化方式</strong></td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 238.712px;">在 world 文件中通过名称和字段参数实例化：<br/><code>MyRobot { translation 0 1 0 }</code></td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 213.025px;">直接包含场景根节点和实例化对象</td>
+</tr>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 53.4625px;"><strong>依赖关系</strong></td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 238.712px;">可嵌套引用其他 PROTO（需声明<span> </span><code>EXTERNPROTO</code>）</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 213.025px;">依赖 PROTO 文件定义组件</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>請說明如何在 Webots 中設定機器人的初始位置和方向。A:
+<ul class="marker:text-textOff list-disc">
+<li>
+<p class="my-0"><strong>場景樹設定</strong>：適用於模擬初始設定，操作簡單直觀。</p>
+</li>
+<li>
+<p class="my-0"><strong>Supervisor 控制器設定</strong>：適用於程式化、動態調整機器人初始位置與方向。</p>
+</li>
+</ul>
+<p class="my-0">這兩種方式可依需求靈活選擇。</p>
+</li>
+<li>在 Tutorial1 或 Tutorial2 中，如何讓機器人執行預設外的自訂動作？A:<span>讓機器人執行預設外的自訂動作，關鍵在於編寫自訂控制器程式，並根據機器人結構與需求設計動作邏輯。Webots 支援多種語言（如 Python、C、C++、Java 等），並提供豐富的 API 控制馬達、感測器與其他設備，讓你能靈活實現各種自訂動作</span><span>。</span></li>
+<li>Webots 支援哪些主流程控制語言？各有何優缺點？A:
+<table class="border-borderMain dark:border-borderMainDark my-[1em] w-full table-auto border" height="186" width="527">
+<thead class="bg-offset dark:bg-offsetDark">
+<tr>
+<th class="border-borderMain px-sm py-sm dark:border-borderMainDark break-normal border text-left align-top" style="width: 50.4px;">語言</th>
+<th class="border-borderMain px-sm py-sm dark:border-borderMainDark break-normal border text-left align-top" style="width: 139.762px;">說明與特點</th>
+<th class="border-borderMain px-sm py-sm dark:border-borderMainDark break-normal border text-left align-top" style="width: 145.825px;">優點</th>
+<th class="border-borderMain px-sm py-sm dark:border-borderMainDark break-normal border text-left align-top" style="width: 167.012px;">缺點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 50.4px;"><strong>C/C++</strong></td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 139.762px;">編譯型語言，執行效率高，Webots 核心 API 以 C 實現</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 145.825px;">執行速度快、資源消耗低、適合複雜與即時控制、API 最完整</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 167.012px;">開發門檻較高、記憶體需自行管理、跨平台需額外編譯環境</td>
+</tr>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 50.4px;"><strong>Java</strong></td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 139.762px;">編譯型語言，運行於 JVM</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 145.825px;">跨平台、易於維護、垃圾回收機制、適合大型專案</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 167.012px;">執行速度略慢於 C/C++、需安裝 JRE/JDK</td>
+</tr>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 50.4px;"><strong>Python</strong></td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 139.762px;">直譯型語言，語法簡潔易上手</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 145.825px;">開發速度快、易於除錯、適合原型設計與教學</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 167.012px;">執行速度較慢、不適合計算密集型任務</td>
+</tr>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 50.4px;"><strong>MATLAB</strong></td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 139.762px;">數學運算與模擬常用，需安裝 MATLAB</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 145.825px;">數學運算強大、適合演算法開發與數據分析</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border" style="width: 167.012px;">需授權、執行速度慢、僅限於 MATLAB 環境</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>機器人控制器程式如何與其他程式（如資料記錄、遠端伺服器）進行通訊？A:
+<div class="border-borderMain/50 ring-borderMain/50 divide-borderMain/50 dark:divide-borderMainDark/50 dark:ring-borderMainDark/50 dark:border-borderMainDark/50 bg-transparent">
+<div class="gap-y-sm md:gap-y-md flex flex-col">
+<div class="relative font-sans text-base text-textMain dark:text-textMainDark selection:bg-super/50 selection:text-textMain dark:selection:bg-superDuper/10 dark:selection:text-superDark">
+<div class="min-w-0 break-words [word-break:break-word]">
+<div class="gap-y-md after:clear-both after:block after:content-['']" dir="auto" id="markdown-content-20">
+<div class="relative">
+<div class="prose text-pretty dark:prose-invert inline leading-normal break-words min-w-0 [word-break:break-word]">
+<p class="my-0">Webots 控制器程式與其他程式通訊的原理，主要是透過進程分離與網路協定，讓控制器能與外部程式（如資料記錄、遠端伺服器）進行資料交換。常見方式包括 Socket 通訊、Emitter/Receiver、檔案/資料庫存取、ROS/ROS2 整合、Web API 等，每種方式各有其適用場景與優點。這種設計讓 Webots 能靈活應用於各種機器人模擬與協作場景。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>Webots 的模擬世界中燈光和陰影設定如何影響感測器或相機的數據？A:
+<p class="my-0">Webots 中的燈光與陰影設定透過物理模型直接影響感測器數據：</p>
+<ul class="marker:text-textOff list-disc">
+<li>
+<p class="my-0"><strong>光感測器</strong>：輻照度計算包含直接/環境光分量，受遮蔽、衰減、濾鏡調控。</p>
+</li>
+<li>
+<p class="my-0"><strong>攝影機</strong>：光照強度決定影像亮度，陰影對比與動態模糊影響影像品質。<br/>合理配置光源參數與感測器設定，可平衡模擬真實性與運算效能。</p>
+</li>
+</ul>
+</li>
+<li>如何在 Webots 中調整機器人或感測器的物理參數（如質量、摩擦係數）？A:<span>Webots 可透過場景樹或 Supervisor 控制器，靈活調整機器人與感測器的物理參數，實現更真實或實驗性的模擬效果</span><span>。</span></li>
+<li>請說明如何使用 Webots 的 Console 與 Debug 工具協助程式錯誤排除。A:<span>Webots 的 Console 與 Debug 工具可協助開發者快速定位程式錯誤，無論是語法錯誤、執行異常或資料流問題，都能透過 Console 輸出、gdb 除錯或 ROS 工具進行有效排除</span><span>。</span></li>
+<li>Tutorial1、2 裡的機器人遇到物體時，碰撞偵測機制如何運作？A:<span>Webots 的碰撞偵測機制基於 </span><code>boundingObject</code><span> 與 ODE 物理引擎，自動偵測所有碰撞並模擬真實物理反應。開發者可透過場景樹設定碰撞體，並在必要時以 Supervisor API 進行進階碰撞事件監控與處理</span><span>。</span></li>
+<li>若要將 Webots 模擬結果導出並進行數據分析，你會選擇哪些方法與工具？A:
+<table class="border-borderMain dark:border-borderMainDark my-[1em] w-full table-auto border">
+<thead class="bg-offset dark:bg-offsetDark">
+<tr>
+<th class="border-borderMain px-sm py-sm dark:border-borderMainDark break-normal border text-left align-top">方法/工具</th>
+<th class="border-borderMain px-sm py-sm dark:border-borderMainDark break-normal border text-left align-top">適用場景</th>
+<th class="border-borderMain px-sm py-sm dark:border-borderMainDark break-normal border text-left align-top">優點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">CSV/JSON 檔案</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">簡單數據記錄、離線分析</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">易於導入、跨平台</td>
+</tr>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">ROS Topic/rosbag</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">ROS 整合、即時數據記錄與回放</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">標準化、支援多節點</td>
+</tr>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">Web Scene</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">3D 互動展示、線上分享</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">視覺化、易於分享</td>
+</tr>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">Python 生態系</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">數據分析、繪圖、機器學習</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">靈活、資源豐富</td>
+</tr>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">MATLAB/R</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">專業數學運算、統計分析</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">功能強大、適合研究</td>
+</tr>
+<tr>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">雲端平台</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">大規模數據分析、協作</td>
+<td class="border-borderMain px-sm dark:border-borderMainDark min-w-[48px] break-normal border">可擴展、支援分散式運算</td>
+</tr>
+</tbody>
+</table>
+</li>
 </ol>
 <h2>HW2</h2>
 <p>HW2 (5%): <span style="background-color: #ffff00;">建立由 CAD 繪製零件組成的平面四連桿機構 Webots 模擬場景</span></p>
@@ -194,6 +408,35 @@
 <p>操作影片標題: 國立虎尾科技大學 - 機械設計工程系 - cd2025 HW2 - 學員學號</p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/uQ4JgNVCWDk?si=om14455ctpWktBjQ" title="YouTube video player" width="560"></iframe></p>
 <p>這部影片是在webots上嘗試模擬HW2。</p>
+<p>Tutorial3：地面顏色感測與行為控制<br/> 主要學習目標：學習利用 ground sensor 偵測地面顏色，並根據顏色改變機器人行為。</p>
+<p>偵測方式：使用安裝於機器人底部的 ground sensor 讀取反射光強度。</p>
+<p>感測器作用：辨識地面顏色（如黑、白、灰），用於巡線或標記辨識。</p>
+<p>程式操作：啟用感測器並讀取數值，根據數值判斷顏色。</p>
+<p>行為改變：遇黑線時停下或轉向，遇白色繼續前進。</p>
+<p>校正原因：環境光線與地面材質影響感測器數值，校正提升準確度。</p>
+<p>sampling period 設定：啟用感測器時指定取樣週期。</p>
+<p>判斷錯誤原因：感測器未校正、光線變化、材質反光異常、門檻設定不當。</p>
+<p>Tutorial4：距離感測與避障行為<br/> 核心任務：利用距離感測器偵測障礙物，實作自動避障。</p>
+<p>偵測方式：e-puck 配備多個紅外線距離感測器，取得周圍障礙物距離。</p>
+<p>DistanceSensor 運作：回傳與障礙物距離成比例的數值（0~4096）。</p>
+<p>程式操作：取得感測器裝置，啟用並讀取數值。<br/> <br/> 數值單位與轉換：數值為比例值，需校正轉換為實際距離。</p>
+<p>sampling period 設定：啟用時設定取樣週期（毫秒）。</p>
+<p>避障行為實作：根據感測器數值判斷障礙物方向，調整轉向。</p>
+<p>雙側障礙物處理：後退並隨機轉向避免死角。</p>
+<p>多感測器考量：提供完整環境資訊，提升避障精確度。</p>
+<p>故障排除：檢查感測器啟用、校正門檻、演算法優化、馬達控制。</p>
+<p>Tutorial5：多感測器整合與複雜任務<br/> 主題：結合多種感測器，實作複雜任務與有限狀態機（FSM）。</p>
+<p>多感測器反應：根據地面顏色與障礙物狀態調整行為。</p>
+<p>感測器融合：同時讀取多感測器數值，設計 FSM 進行狀態切換。</p>
+<p>巡線與避障結合：巡線為主，遇障礙物暫停巡線避障。</p>
+<p>衝突訊息決策：設定感測器優先權或依狀態機切換行為。</p>
+<p>任務流程切換：以 FSM 控制狀態與行為。</p>
+<p>FSM 設計：定義狀態，根據感測器輸入切換。</p>
+<p>挑戰題目：如同時巡線避障，先分別實作再整合。</p>
+<p>自主巡邏功能：路徑規劃、位置記錄、感測器融合、狀態控制。</p>
+<p>感測器資料融合（Sensor Fusion）</p>
+<p>將多種感測器數據整合，提升環境感知與決策能力。</p>
+<p>應用於巡線避障、複雜任務狀態切換</p>
 <h2>HW3</h2>
 <p>HW3 (20%):建立 Webots 桌上籃球遊戲機模擬系統</p>
 <p>操作影片標題: 國立虎尾科技大學 - 機械設計工程系 - cd2025 HW3 - 學員學號</p>
@@ -205,6 +448,67 @@
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ZHBcs37iNOI?si=893kAXke1SXlMGhy" title="YouTube video player" width="560"></iframe></p>
 <p>如果完成了，應該是像這樣:</p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ypN5DzGLSXA?si=PlzzfRiH2jChTGM-" title="YouTube video player" width="560"></iframe></p>
+<p>Tutorial6 相關提問</p>
+<p>主要學習主題?</p>
+<p>Tutorial6 主要學習如何在 Webots 中為 e-puck 機器人新增攝影機（Camera）裝置，並透過程式控制攝影機，取得影像資料，進而讓機器人能依據視覺資訊做出反應。</p>
+<p>e-puck 機器人新增裝置?</p>
+<p>在本單元，e-puck 機器人新增了攝影機（Camera）裝置。</p>
+<p>如何在 Webots 中使用攝影機（Camera）?</p>
+<p>需在機器人結構中加入 Camera 節點，設定好名稱、位置與方向。然後在控制器程式中取得 Camera 物件並啟用。</p>
+<p>Camera 需要在程式中如何啟用?</p>
+<p>需呼叫 camera-&gt;enable(TIME_STEP)（C++）或 wb_camera_enable(camera, TIME_STEP)（C）來啟用攝影機，TIME_STEP 是模擬步進時間。</p>
+<p>如何取得攝影機擷取到的影像資料?</p>
+<p>啟用攝影機後，可用 camera-&gt;getImage()（C++）或 wb_camera_get_image(camera)（C）取得影像資料。</p>
+<p>機器人如何依據攝影機影像做出反應?</p>
+<p>可根據影像中的顏色、形狀等資訊進行分析，然後調整機器人行為（如移動方向、速度等）。</p>
+<p>Camera 裝置可以調整哪些參數?</p>
+<p>可調整解析度（寬、高）、視場角（FOV）、更新頻率等。</p>
+<p>影像解析度的設定會對模擬有什麼影響?</p>
+<p>解析度越高，影像越清晰，但會增加運算負擔，降低模擬效率。</p>
+<p>如何將攝影機影像儲存成圖片檔?</p>
+<p>可將取得的影像資料存成圖片檔（如 PNG），需用程式將影像 buffer 轉存為檔案，通常會用到額外的影像處理函式庫。</p>
+<p>若攝影機影像顯示異常，可能的原因?</p>
+<p>常見原因有：Camera 節點未正確加入、名稱不符、未啟用、解析度設置錯誤、Webots 需重啟等。</p>
+<p>Tutorial7 相關提問</p>
+<p>核心任務?</p>
+<p>讓 e-puck 機器人利用攝影機偵測並辨識顏色，進而做出相應行為。</p>
+<p>e-puck 機器人如何偵測顏色?</p>
+<p>透過攝影機擷取影像後，分析影像像素的顏色資訊。</p>
+<p>如何分析攝影機擷取的影像來辨識特定顏色</p>
+<p>可逐像素分析 RGB 或 HSV 值，判斷是否落在目標顏色範圍內。</p>
+<p>OpenCV 或其他影像處理函式庫的應用方式?</p>
+<p>將 Webots 取得的影像資料轉為 OpenCV 可處理的格式（如 Mat），然後用 OpenCV 函式進行顏色過濾、區域偵測等。</p>
+<p>如何將影像中的顏色資訊轉換為機器人行為?</p>
+<p>分析影像中目標顏色的位置，決定機器人移動方向或速度，實現追蹤等行為。</p>
+<p>若要辨識多種顏色，程式需考慮哪些步驟?</p>
+<p>需為每種顏色設置對應的閾值範圍，分別進行偵測，並根據偵測結果決定行為優先順序。</p>
+<p>如何解決不同光源下顏色偵測的不穩定問題?</p>
+<p>可將影像轉換為 HSV 色彩空間，並動態調整閾值，或進行自動白平衡、亮度校正等。</p>
+<p>e-puck 機器人如何追蹤影像中的顏色物件?</p>
+<p>偵測到目標顏色後，計算其在影像中的位置，調整機器人行進方向，使目標保持在中央。</p>
+<p>若影像中有多個同色物件，程式如何選擇追蹤目標?</p>
+<p>可選擇面積最大、最靠近中央或最近的物件作為追蹤目標。</p>
+<p>Tutorial7 能否應用於現實世界的機器人？需做哪些調整？</p>
+<p>可應用於現實機器人，但需考慮真實攝影機的雜訊、光源變化、鏡頭畸變等，並進行相應的校正與調整。</p>
+<p>Tutorial8 相關提問</p>
+<p>主要學習目標?</p>
+<p>學習 Supervisor 控制器的使用，實現對多個機器人或物件的監控與管理。</p>
+<p>什麼是 Supervisor？在 Tutorial8 扮演什麼角色？</p>
+<p>Supervisor 是一種特殊的控制器，可取得並控制場景中所有物件，負責監督與管理模擬過程。</p>
+<p>Supervisor 可以進行哪些操作？</p>
+<p>可取得物件狀態、控制物件位置、重設模擬、紀錄數據等。</p>
+<p>如何在 Supervisor 控制器中存取並控制其他機器人？</p>
+<p>可透過 API 取得機器人節點，然後讀取或改寫其屬性（如位置、狀態）。</p>
+<p>如何用 Supervisor 監測機器人是否達到目標區域？</p>
+<p>可定期取得機器人座標，判斷是否進入目標區域範圍。</p>
+<p>Supervisor 如何重設模擬或重置機器人位置？</p>
+<p>可呼叫 Supervisor 的重設函式，或直接設定機器人座標來重置位置。</p>
+<p>Supervisor 能否獲取所有物件的座標與狀態？如何實作？</p>
+<p>可以，透過遍歷場景樹節點，取得各物件座標與狀態。</p>
+<p>如何紀錄機器人模擬過程的數據供日後分析？</p>
+<p>Supervisor 可將模擬過程中的關鍵數據（如座標、狀態等）寫入檔案做紀錄。</p>
+<p>Supervisor 可以如何協助自動化測試機器人行為？</p>
+<p>可自動控制模擬流程、重複測試不同情境，並自動收集結果數據。</p>
 <h1>Midterm</h1>
 <p>本課程所繳交的期中成績為學員自評之學習期望成績.</p>
 <p>期中考週的自評期望成績繳交流程:</p>
