@@ -157,6 +157,48 @@ img.add_border {
 <p>      (1)建立robot用以製作結構</p>
 <p>      (2)使用上者的chidren來建立各個box及hengjoint來製作結構</p>
 <p>      (3)記得導入physic</p>
+<p></p>
+<p>mde.tw Exam1 相關提問簡短回答<br/>Webots 場景基本節點功能<br/>1. WorldInfo 節點有何作用？<br/>WorldInfo 節點定義模擬世界的全域屬性，包括重力設定、基本時間步長(basicTimeStep)、座標系統等物理參數，是每個 Webots 世界檔案(.wbt)的必要節點。</p>
+<p>2. Viewpoint 節點的主要功能是什麼？<br/>Viewpoint 節點定義 3D 視窗中觀察者的位置、朝向和視角，讓使用者可以從不同角度觀察模擬場景，可設定 position、orientation 和 fieldOfView 等屬性。</p>
+<p>3. TexturedBackground 與 TexturedBackgroundLight 在場景中負責什麼？<br/>TexturedBackground：設定場景的背景環境，提供天空盒或背景圖像</p>
+<p>TexturedBackgroundLight：配合背景提供環境光照，確保場景有適當的光線照明效果</p>
+<p>4. Robot 節點在此場景中代表什麼角色？<br/>Robot 節點是機器人的根節點，可包含控制器程式、感測器、執行器等子節點，代表一個完整的機器人系統，具備自主行為能力。</p>
+<p>5. base Solid 節點的功能為何？<br/>base Solid 節點作為四連桿機構的固定基座，提供其他連桿的參考座標系統，通常使用 DEF 命名以便其他節點引用。</p>
+<p>物件外觀與幾何設定<br/>6. Shape 與 Appearance 節點如何用於物件外觀設定？<br/>Shape：定義物件的視覺幾何形狀，包含 geometry 和 appearance 欄位</p>
+<p>Appearance：設定材質屬性，如顏色、透明度、金屬質感等視覺效果</p>
+<p>7. geometry Box 如何設定形狀尺寸？<br/>在 Box 節點中使用 size 欄位設定三維尺寸，格式為 [長度, 寬度, 高度]，單位為公尺。</p>
+<p>8. material Material 內的 diffuseColor 如何影響外觀？<br/>diffuseColor 設定物件的基本顏色，使用 RGB 值表示，如 [1, 0, 0] 為紅色，[0, 1, 0] 為綠色。</p>
+<p>9. transparency 參數設定對外觀有何影響？<br/>transparency 值介於 0-1 之間，0 為完全不透明，1 為完全透明。base 通常設為透明以便觀察內部機構運動。</p>
+<p>關節與運動控制<br/>10. HingeJoint 節點的用途與基本參數有哪些？<br/>HingeJoint 實現旋轉關節功能，基本參數包括：</p>
+<p>anchor：旋轉中心點座標</p>
+<p>axis：旋轉軸方向</p>
+<p>device：可配置馬達或感測器</p>
+<p>11. HingeJointParameters 節點中的 axis 與 anchor 分別代表什麼？<br/>axis：定義旋轉軸的方向向量，如 [0, 1, 0] 表示繞 Y 軸旋轉</p>
+<p>anchor：設定旋轉的中心點座標位置</p>
+<p>12. RotationalMotor 裝置如何與 HingeJoint 結合？<br/>在 HingeJoint 的 device 欄位中加入 RotationalMotor，可透過控制器程式設定旋轉速度或位置，實現自動化運動控制。</p>
+<p>13. 若要讓 link3 可動，需在何處設定馬達？<br/>需在連接 link3 的 HingeJoint 節點中的 device 欄位加入 RotationalMotor，並在控制器程式中設定適當的運動參數。</p>
+<p>物理屬性與碰撞檢測<br/>14. Solid 節點與 boundingObject 的關係為何？<br/>boundingObject 定義 Solid 節點的碰撞檢測範圍，通常使用與視覺外形相同或簡化的幾何形狀，與 physics 節點配合使用。</p>
+<p>15. physics Physics 節點的功能？<br/>Physics 節點定義物件的物理屬性，如質量、摩擦係數等，使物件能參與物理模擬，包括重力、碰撞等效果。</p>
+<p>16. 何謂 boundingObject？為何要指定？<br/>boundingObject 是物件的碰撞檢測邊界，用於物理引擎計算碰撞。必須指定以實現正確的物理互動和碰撞檢測。</p>
+<p>座標與定位<br/>17. translation 與 rotation 如何決定物件在 3D 空間的位置與朝向？<br/>translation：設定物件在 3D 空間的位置座標 [x, y, z]</p>
+<p>rotation：設定物件的旋轉，格式為 [軸向量 x, y, z, 角度]</p>
+<p>18. Pose 節點的功能與使用時機？<br/>Pose 節點用於在 children 數列中進行局部座標轉換，當需要調整子節點相對於父節點的位置和朝向時使用。</p>
+<p>19. anchor 參數如何影響關節的運動中心？<br/>anchor 參數設定關節的旋轉中心點，影響連桿繞此點旋轉的運動軌跡，必須根據機構設計正確設定。</p>
+<p>結構設計與命名<br/>20. link1、link2、link3 各自代表什麼結構？<br/>在四連桿機構中：</p>
+<p>link1：第一個可動連桿，連接 base 和 link2</p>
+<p>link2：第二個可動連桿，連接 link1 和 link3</p>
+<p>link3：第三個可動連桿，形成封閉運動鏈</p>
+<p>21. Robot 節點中 children 陣列的作用？<br/>children 陣列用於包含機器人的所有子節點，如感測器、執行器、結構件等，建立完整的機器人模型階層結構。</p>
+<p>22. DEF 與 USE 的差異與用途？<br/>DEF：定義一個可重複使用的節點，並給予名稱</p>
+<p>USE：引用先前 DEF 定義的節點，避免重複定義，節省記憶體</p>
+<p>23. SolidReference 如何實現多關節結構的連結？<br/>SolidReference 通過 solidName 欄位引用其他 Solid 節點，實現封閉運動鏈的約束，完成四連桿機構的閉合。</p>
+<p>24. endPoint 屬性在 HingeJoint 結構中的意義？<br/>endPoint 定義關節末端連接的物件，建立關節與下一個連桿的連接關係，形成運動鏈。</p>
+<p>控制程式與運動檢查<br/>25. controller 屬性如何指定機器人控制程式？<br/>在 Robot 節點的 controller 欄位中指定控制器名稱，對應 controllers 目錄下的程式檔案，如 "fourbar_controller"。</p>
+<p>26. 如何在 Webots 檢查各關節的運動範圍？<br/>可在場景樹中查看 HingeJoint 的 minPosition 和 maxPosition 參數，或在模擬運行時觀察關節的實際運動情況。</p>
+<p>設計考量與規則<br/>27. 為什麼 link2 會包含 Pose 及多個子 Shape？<br/>link2 可能需要複雜的幾何結構或特定的定位方式，使用 Pose 進行座標轉換，多個 Shape 建立詳細的視覺外形。</p>
+<p>28. 四連桿結構在此場景的設計意圖為何？<br/>展示封閉運動鏈的機構模擬，讓學員理解如何在 Webots 中建立複雜的機械結構，並學習關節約束和運動控制。</p>
+<p>29. 場景中透明的 base 有什麼作用？<br/>透明 base 可讓觀察者清楚看到機構內部的運動情況，便於理解機構的運動原理和檢查設計是否正確。</p>
+<p>30. 製作此場景時，應注意哪些結構層級與命名規則？<br/>使用有意義的 DEF 名稱（如 base, link1, joint1）</p>
 <br />Exam << <a href='Exam.html'>Previous</a> <a href='Exam2.html'>Next</a> >> Exam2</div>
         
     <!-- footer -->
